@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>测试页面</title>
+    <title>woshinini</title>
 </head>
 <body>
-<h2>Hello Spring!</h2>
+<h2>Hello nini!</h2>
 </body>
 </html>

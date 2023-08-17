@@ -11,6 +11,16 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
+  <!-- 解决cors跨域问题过滤器 -->
+  <filter>
+    <filter-name>corsFilter</filter-name>
+    <filter-class>com.zx.filter.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>corsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!--配置springmvc DispatcherServlet-->
   <servlet>
     <servlet-name>springMVC</servlet-name>

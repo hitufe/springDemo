@@ -13,7 +13,7 @@ public class MyServiceImpl implements MyService {
     @Override
     public Object getData(Number num, String name) {
 
-        String responseString = "your name : " + name;
+        String responseString = "你的姓名为： " + name;
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("newNum", num);
         responseMap.put("newName", responseString);
