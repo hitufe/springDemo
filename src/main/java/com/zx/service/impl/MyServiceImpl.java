@@ -5,8 +5,10 @@ import com.zx.service.MyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
 @Slf4j
 @Service
 public class MyServiceImpl implements MyService {
@@ -18,7 +20,8 @@ public class MyServiceImpl implements MyService {
         responseMap.put("newNum", num);
         responseMap.put("newName", responseString);
         JSONObject respObj = new JSONObject(responseMap);
-        log.info("serviceDone");
+        String utf8Rep = new String(respObj.toJSONString().getBytes(), StandardCharsets.UTF_8);
+        log.info("serviceDone, response: " + utf8Rep);
         return respObj;
     }
 }
