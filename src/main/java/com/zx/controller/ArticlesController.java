@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.zx.service.ArticlesBiz;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.required;
 
 /**
  * @author cdl
@@ -37,7 +40,7 @@ public class ArticlesController {
     @ResponseBody
     @CrossOrigin//跨域
     @RequestMapping("/add")
-    public String add(HttpServletResponse resp, Articles article) {
+    public String add(HttpServletResponse resp, @RequestBody Articles article) {
         ObjectMapper om = new ObjectMapper();
         try {
             code = this.articlesBiz.insert(article);
@@ -59,7 +62,7 @@ public class ArticlesController {
     @ResponseBody
     @CrossOrigin
     @RequestMapping("/edit")
-    public String edit(HttpServletResponse resp, Articles article) {
+    public String edit(HttpServletResponse resp, @RequestBody Articles article) {
         ObjectMapper om = new ObjectMapper();
         try {
             code = this.articlesBiz.updateByPrimaryKeySelective(article);
@@ -105,8 +108,8 @@ public class ArticlesController {
     //    查询
     @ResponseBody
     @CrossOrigin
-    @RequestMapping("/list")
-    public List<Map<String, Object>> selectAll(HttpServletRequest req, HttpServletResponse response, Articles article) {
+    @RequestMapping(value = "/list", produces = {"application/json;charset=UTF-8"})
+    public List<Map<String, Object>> selectAll(HttpServletRequest req, HttpServletResponse response, @RequestBody Articles article ) {
         ObjectMapper om = new ObjectMapper();
         PageBean pageBean = new PageBean();
         pageBean.setRequest(req);
@@ -115,10 +118,12 @@ public class ArticlesController {
             if (null == article.getTitle()) {
                 article.setTitle("");
             }
+            log.info("title: " + article.getTitle());
             List<Map<String, Object>> articles = articlesBiz.listPager(article, pageBean);
             JsonData jsonData = new JsonData(1, "操作成功", articles);
             jsonData.put("pageBean", pageBean);
             ResponseUtil.write(response, om.writeValueAsString(jsonData));
+            log.info("查询成功： " + articles);
         } catch (Exception e) {
             log.error("list error: " + e);
         }

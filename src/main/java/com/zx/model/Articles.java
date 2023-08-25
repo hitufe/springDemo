@@ -14,7 +14,7 @@ public class Articles {
 
     private String body;
 
-    public Articles(String id, String name, String title, String body) {
+/*    public Articles(String id, String name, String title, String body) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -23,6 +23,6 @@ public class Articles {
 
     public Articles() {
         super();
-    }
+    }*/
 
 }
