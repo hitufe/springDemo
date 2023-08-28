@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface ArticlesBiz {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Articles record);
 
     int insert(Articles record);
 

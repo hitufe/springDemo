@@ -5,6 +5,8 @@
         <constructor>
             <arg column="id" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="detail" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="del_flag" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <insert id="insert" parameterType="com.zx.model.Articles">
@@ -38,11 +40,17 @@
         select *
         from vue_article
         where title like concat(concat('%', #{title,jdbcType=VARCHAR}), '%')
+          and del_flag = '0'
     </select>
     <update id="updateByPrimaryKeySelective" parameterType="com.zx.model.Articles">
         update vue_article
         set title=#{title,jdbcType=VARCHAR},
             body=#{body,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="deleteByPrimaryKey" parameterType="com.zx.model.Articles">
+        update vue_article
+        set del_flag = '1'
         where id = #{id,jdbcType=VARCHAR}
     </update>
 </mapper>

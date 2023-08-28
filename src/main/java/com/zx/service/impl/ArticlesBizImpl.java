@@ -24,8 +24,8 @@ public class ArticlesBizImpl implements ArticlesBiz {
     private ArticlesMapper articlesMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return articlesMapper.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(Articles record) {
+        return articlesMapper.deleteByPrimaryKey(record);
     }
 
     @Override

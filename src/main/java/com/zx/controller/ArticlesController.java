@@ -66,6 +66,7 @@ public class ArticlesController {
         ObjectMapper om = new ObjectMapper();
         try {
             code = this.articlesBiz.updateByPrimaryKeySelective(article);
+            log.info("修改成功");
         } catch (Exception e) {
             log.error("edit error: " + e);
             code = 0;
@@ -84,10 +85,11 @@ public class ArticlesController {
     @ResponseBody
     @CrossOrigin
     @RequestMapping("/del")
-    public String del(HttpServletResponse resp, Integer id) {
+    public String del(HttpServletResponse resp, @RequestBody Articles article) {
         ObjectMapper om = new ObjectMapper();
         try {
-            this.articlesBiz.deleteByPrimaryKey(id);
+            this.articlesBiz.deleteByPrimaryKey(article);
+            log.info("删除成功");
             code = 1;
         } catch (Exception e) {
             log.error("del error: " + e);
@@ -118,7 +120,6 @@ public class ArticlesController {
             if (null == article.getTitle()) {
                 article.setTitle("");
             }
-            log.info("title: " + article.getTitle());
             List<Map<String, Object>> articles = articlesBiz.listPager(article, pageBean);
             JsonData jsonData = new JsonData(1, "操作成功", articles);
             jsonData.put("pageBean", pageBean);

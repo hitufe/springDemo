@@ -10,7 +10,7 @@ public interface ArticlesMapper {
 
     int insertSelective(Articles record);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Articles record);
 
     Articles selectByPrimaryKey(Integer id);
 
