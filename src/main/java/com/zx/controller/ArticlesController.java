@@ -20,12 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.required;
 
 /**
- * @author cdl
- * @site www.cdl.com
- * @create 2022-09-17 9:36
+ * @author 666
+ * @create 2023-08-11 9:36
  */
 @Slf4j
 @Controller
@@ -114,7 +112,7 @@ public class ArticlesController {
     public List<Map<String, Object>> selectAll(HttpServletRequest req, HttpServletResponse response, @RequestBody Articles article ) {
         ObjectMapper om = new ObjectMapper();
         PageBean pageBean = new PageBean();
-        pageBean.setRequest(req);
+        pageBean.setReq(article);
         Map<String, Object> map = new HashMap<>();
         try {
             if (null == article.getTitle()) {
