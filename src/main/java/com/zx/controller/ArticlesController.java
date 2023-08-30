@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.zx.service.ArticlesBiz;
@@ -19,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * @author cdl
- * @site www.cdl.com
- * @create 2022-09-17 9:36
+ * @author 666
+ * @create 2023-08-11 9:36
  */
 @Slf4j
 @Controller
@@ -37,7 +38,7 @@ public class ArticlesController {
     @ResponseBody
     @CrossOrigin//跨域
     @RequestMapping("/add")
-    public String add(HttpServletResponse resp, Articles article) {
+    public String add(HttpServletResponse resp, @RequestBody Articles article) {
         ObjectMapper om = new ObjectMapper();
         try {
             code = this.articlesBiz.insert(article);
@@ -59,10 +60,11 @@ public class ArticlesController {
     @ResponseBody
     @CrossOrigin
     @RequestMapping("/edit")
-    public String edit(HttpServletResponse resp, Articles article) {
+    public String edit(HttpServletResponse resp, @RequestBody Articles article) {
         ObjectMapper om = new ObjectMapper();
         try {
             code = this.articlesBiz.updateByPrimaryKeySelective(article);
+            log.info("修改成功");
         } catch (Exception e) {
             log.error("edit error: " + e);
             code = 0;
@@ -81,10 +83,11 @@ public class ArticlesController {
     @ResponseBody
     @CrossOrigin
     @RequestMapping("/del")
-    public String del(HttpServletResponse resp, Integer id) {
+    public String del(HttpServletResponse resp, @RequestBody Articles article) {
         ObjectMapper om = new ObjectMapper();
         try {
-            this.articlesBiz.deleteByPrimaryKey(id);
+            this.articlesBiz.deleteByPrimaryKey(article);
+            log.info("删除成功");
             code = 1;
         } catch (Exception e) {
             log.error("del error: " + e);
@@ -105,11 +108,11 @@ public class ArticlesController {
     //    查询
     @ResponseBody
     @CrossOrigin
-    @RequestMapping("/list")
-    public List<Map<String, Object>> selectAll(HttpServletRequest req, HttpServletResponse response, Articles article) {
+    @RequestMapping(value = "/list", produces = {"application/json;charset=UTF-8"})
+    public List<Map<String, Object>> selectAll(HttpServletRequest req, HttpServletResponse response, @RequestBody Articles article ) {
         ObjectMapper om = new ObjectMapper();
         PageBean pageBean = new PageBean();
-        pageBean.setRequest(req);
+        pageBean.setReq(article);
         Map<String, Object> map = new HashMap<>();
         try {
             if (null == article.getTitle()) {
@@ -119,6 +122,7 @@ public class ArticlesController {
             JsonData jsonData = new JsonData(1, "操作成功", articles);
             jsonData.put("pageBean", pageBean);
             ResponseUtil.write(response, om.writeValueAsString(jsonData));
+            log.info("查询成功： " + articles);
         } catch (Exception e) {
             log.error("list error: " + e);
         }

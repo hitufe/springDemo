@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author cdl
- * @site www.cdl.com
- * @create 2022-09-16 22:30
+ * @author 666
+ * @create 2023-08-11 9:36
  */
 public interface ArticlesBiz {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Articles record);
 
     int insert(Articles record);
 

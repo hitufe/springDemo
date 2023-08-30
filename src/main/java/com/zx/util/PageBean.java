@@ -1,6 +1,7 @@
 package com.zx.util;
 
 
+import com.zx.model.Articles;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +36,21 @@ public class PageBean implements Serializable {
     }
 
     //设置请求参数
+    public void setReq(Articles article) {
+        String page = article.getPage();
+        String rows = article.getRows();
+        String pagination = String.valueOf(article.isPagination());
+
+        this.setPage(page);
+        this.setRows(rows);
+        this.setPagination(pagination);
+    }
     public void setRequest(HttpServletRequest req) {
         String page = req.getParameter("page");
         String rows = req.getParameter("rows");
         String pagination = req.getParameter("pagination");
+
+
         this.setPage(page);
         this.setRows(rows);
         this.setPagination(pagination);

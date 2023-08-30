@@ -5,9 +5,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
- * @author cdl
- * @site www.cdl.com
- * @create 2022-08-10 22:47
+ * @author 666
+ * @create 2023-08-11 9:36
  */
 public class SessionUtil {
     private static SqlSessionFactory sessionFactory;
